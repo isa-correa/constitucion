@@ -182,6 +182,76 @@ body.exam .score{display:block}
 .score-reset:hover{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.score-bar i{transition:none}}
 
+.mode-go{background:var(--accent);border-color:var(--accent);color:#fff}
+.setup::backdrop{background:rgba(8,14,18,.62);backdrop-filter:blur(3px)}
+.setup{border:1px solid var(--rule);border-radius:12px;background:var(--bg);color:var(--ink);padding:0;
+ width:min(34rem,calc(100vw - 2rem));max-height:calc(100dvh - 2rem);overflow:auto;
+ box-shadow:0 18px 50px rgba(8,14,18,.35)}
+.setup-in{padding:1.4rem 1.5rem 1.2rem;display:grid;gap:1.15rem;margin:0}
+.setup h2{font-size:1.25rem;font-weight:600}
+.su-block{border:0;padding:0;margin:0;display:grid;gap:.55rem;min-width:0}
+.su-block legend{padding:0;font-family:var(--mono);font-size:.65rem;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--ink3);margin-bottom:.15rem}
+.su-cats{display:flex;flex-wrap:wrap;gap:.35rem}
+.su-cat{display:inline-flex;align-items:center;gap:.4rem;font:500 .78rem/1 var(--sans);color:var(--ink2);
+ background:var(--surf);border:1px solid var(--rule);border-radius:999px;padding:.42rem .7rem;cursor:pointer;
+ user-select:none}
+.su-cat input{position:absolute;opacity:0;width:0;height:0}
+.su-cat b{font-variant-numeric:tabular-nums;color:var(--ink3);font-weight:500}
+.su-cat:has(input:checked){background:var(--accent-s);border-color:var(--accent);color:var(--ink)}
+.su-cat:has(input:checked) b{color:var(--ink2)}
+.su-cat:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.su-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.su-mini{font:500 .72rem/1 var(--mono);letter-spacing:.04em;color:var(--ink2);background:none;
+ border:1px solid var(--rule);border-radius:5px;padding:.3rem .5rem;cursor:pointer}
+.su-mini:hover{color:var(--ink);border-color:var(--ink3)}
+.su-count{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--ink3);font-variant-numeric:tabular-nums}
+.su-opt{display:grid;grid-template-columns:1.1rem 1fr;gap:.6rem;align-items:start;padding:.55rem .7rem;
+ border:1px solid var(--rule);border-radius:7px;cursor:pointer;background:var(--surf)}
+.su-opt:has(input:checked){border-color:var(--accent);background:var(--accent-s)}
+.su-opt:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.su-opt input{margin:.15rem 0 0;accent-color:var(--accent)}
+.su-opt b{display:block;font-size:.9rem;font-weight:600}
+.su-opt i{display:block;font-style:normal;font-size:.82rem;color:var(--ink2);margin-top:.15rem;line-height:1.45}
+.su-lens{display:flex;flex-wrap:wrap;gap:.35rem}
+.su-len{flex:1 1 4.5rem;text-align:center;display:block;padding:.5rem .4rem;border:1px solid var(--rule);
+ border-radius:7px;background:var(--surf);cursor:pointer;font:500 .84rem/1.2 var(--sans)}
+.su-len:has(input:checked){border-color:var(--accent);background:var(--accent-s)}
+.su-len:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.su-len input{position:absolute;opacity:0;width:0;height:0}
+.su-len s{display:block;text-decoration:none;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
+ text-transform:uppercase;color:var(--ink3);margin-top:.15rem}
+.su-key{display:grid;gap:.45rem}
+.su-key input{font:400 .84rem/1.3 var(--mono);color:var(--ink);background:var(--surf);border:1px solid var(--rule);
+ border-radius:6px;padding:.55rem .65rem;width:100%}
+.su-key input:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.su-note{font-size:.79rem;color:var(--ink3);line-height:1.5;margin:0}
+.su-note a{color:var(--accent)}
+.su-warn{background:var(--warn-s);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);
+ border-radius:6px;padding:.55rem .7rem;font-size:.79rem;color:var(--ink2);line-height:1.5;margin:0}
+.su-warn b{color:var(--warn)}
+.su-err{background:var(--bad-s);border:1px solid var(--bad-b);border-radius:6px;padding:.55rem .7rem;
+ font-size:.83rem;color:var(--ink);margin:0}
+.su-foot{display:flex;gap:.5rem;justify-content:flex-end;flex-wrap:wrap;border-top:1px solid var(--rule);
+ padding-top:.9rem}
+.su-go[disabled]{opacity:.55;cursor:progress}
+.su-prog{font-family:var(--mono);font-size:.74rem;color:var(--ink3);margin:0;display:flex;align-items:center;gap:.5rem}
+.su-prog i{display:block;height:3px;border-radius:2px;background:var(--accent);width:0;transition:width .3s ease}
+.su-prog span{flex:1;height:3px;border-radius:2px;background:var(--surf-2);overflow:hidden;display:block}
+
+.q.gen .q-n{color:var(--accent)}
+.gen-tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+.q-drop{font:500 .68rem/1 var(--mono);color:var(--ink3);background:none;border:1px solid var(--rule);
+ border-radius:4px;padding:.22rem .4rem;cursor:pointer;margin-left:auto}
+.q-drop:hover{color:var(--bad);border-color:var(--bad-b)}
+.badge.gen-badge{color:var(--accent)}
+@media (max-width:640px){
+ .setup{inset:0;margin:0;width:auto;max-width:none;height:auto;max-height:100dvh;border-radius:0;border:0}
+ .setup-in{padding:1.1rem 1.05rem 1.2rem}
+ .su-foot{position:sticky;bottom:0;background:var(--bg);margin:0 -1.05rem -1.2rem;padding:.9rem 1.05rem 1.1rem}
+ .su-foot .mode{flex:1}
+}
+
 .key{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:1rem}
 .pk{font-family:var(--mono);font-size:.72rem;border:1px solid var(--rule);border-radius:4px;background:var(--surf);
  padding:.15rem .35rem;display:inline-flex;gap:.35rem;font-variant-numeric:tabular-nums}
@@ -215,40 +285,6 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  </div>
 </header>
 
-<div class="note">
- <div>
-  <h2>Qué hay aquí</h2>
-  <p>Los cuatro archivos suman 190 preguntas, pero se repiten mucho entre ellos: 42 preguntas aparecen en dos o más documentos. Quitando las repeticiones y una pregunta defectuosa quedan <strong>147 preguntas distintas</strong>, agrupadas por los siete asuntos que realmente se preguntan. Cada una lleva la respuesta y, debajo, el artículo concreto que la resuelve y por qué fallan las otras tres.</p>
- </div>
- <div class="flag">
-  <p><strong>Dos de los cuatro documentos no traen plantilla.</strong> Los dos PDF de test (archivos 12 y 13) no incluyen las soluciones. De sus preguntas, la mayoría se repiten en los documentos que sí la traen, así que la respuesta está documentada; las <strong>16 que no se repetían</strong> se han resuelto contra el texto de la Constitución, la Ley Orgánica 2/1979 del Tribunal Constitucional y la Ley Orgánica 3/1981 del Defensor del Pueblo. Esas llevan la etiqueta <em>respuesta razonada</em> en vez de <em>respuesta oficial</em>.</p>
- </div>
- <div>
-  <h2>Correcciones sobre los documentos originales</h2>
-  <p><strong>Dos preguntas est&aacute;n desfasadas.</strong> Las preguntas 59 y 69 preguntan cu&aacute;ntas veces se ha reformado la Constituci&oacute;n y todo el material es anterior a la <strong>reforma del art&iacute;culo 49, de 15 de febrero de 2024</strong> (BOE del 17). Son <strong>tres</strong> reformas &mdash;art. 13.2 en 1992, art. 135 en 2011 y art. 49 en 2024&mdash;, las tres por el art&iacute;culo 167; el 168 sigue sin usarse. En esas dos preguntas ninguna de las opciones es hoy correcta: se mantiene la respuesta del material y va avisado en cada una.</p>
-  <p>Se ha <strong>descartado una pregunta</strong> del test 2 sobre cómo se produjo la abdicación de Juan Carlos I: ninguna de sus cuatro opciones dice «ley orgánica», que es lo que exige el artículo 57.5. La misma pregunta, bien planteada, está en el archivo 15 y sí figura en el listado.</p>
-  <p>Se ha <strong>corregido una respuesta de plantilla</strong>: en la pregunta sobre el comienzo del Preámbulo, el documento marca «la igualdad, la libertad y la seguridad», pero el texto dice «la <em>justicia</em>, la libertad y la seguridad». Y se han <strong>reparado dos preguntas</strong> cuyas opciones venían mal numeradas en el archivo de origen. En dos casos más, la plantilla es correcta pero hay una segunda opción igualmente cierta: quedan señalados con un aviso, porque en un examen oficial serían impugnables.</p>
- </div>
- <div class="scroll">
-  <table>
-   <thead><tr><th>Documento de origen</th><th>Soluciones</th><th style="text-align:right">Preguntas</th></tr></thead>
-   <tbody><tr><td>12. 1 TEST TEMA 1 Y 2 (pdf)</td><td class="mono sm">sin plantilla</td><td class="num">28</td></tr><tr><td>13. 2 TEST TEMA 1 Y 2 (pdf)</td><td class="mono sm">sin plantilla</td><td class="num">30</td></tr><tr><td>14. Examen Temas 1 y 2 (docx)</td><td class="mono sm">plantilla incluida</td><td class="num">20</td></tr><tr><td>15. Test Exámenes Temas 1 y 2 (docx)</td><td class="mono sm">plantilla incluida</td><td class="num">112</td></tr></tbody>
-  </table>
- </div>
- <div class="scroll">
-  <table>
-   <thead><tr><th>Asunto</th><th style="text-align:right">Preguntas</th></tr></thead>
-   <tbody><tr><td>La Constitución: estructura y Título Preliminar</td><td class="num">15</td></tr><tr><td>Derechos y deberes del Título I</td><td class="num">28</td></tr><tr><td>Suspensión de derechos y estados excepcionales</td><td class="num">14</td></tr><tr><td>Reforma de la Constitución</td><td class="num">13</td></tr><tr><td>La Corona</td><td class="num">35</td></tr><tr><td>Tribunal Constitucional</td><td class="num">23</td></tr><tr><td>Defensor del Pueblo</td><td class="num">19</td></tr></tbody>
-  </table>
- </div>
- <div>
-  <h2>Cómo usarlo</h2>
-  <p><strong>Modo examen</strong> oculta las respuestas y las explicaciones sobre el listado completo: contesta primero y comprueba después, porque el esfuerzo de recuperar el dato es justo lo que lo fija. Con los filtros de arriba te quedas con un solo asunto cuando quieras trabajar, por ejemplo, solo la Corona o solo el artículo 53. <strong>Simulacro · 40</strong> monta un examen al azar mezclando los siete asuntos en proporción a su peso, sin filtros y sin saber de qué va la siguiente.</p>
-  <p>En los dos casos <strong>las cuatro opciones se barajan en cada carga de la página</strong>, así que no sirve acordarse de que «esta era la c»: hay que reconocer la respuesta. Lo contestado se guarda en el navegador, y el marcador de abajo a la derecha calcula la nota con el criterio del INAP, restando un tercio por cada fallo.</p>
- </div>
-</div>
-</div>
-
 <nav class="bar"><div class="bar-in">
  <div class="chips">
 <button class="chip" data-f="all" aria-pressed="true">Todas <b>147</b></button>
@@ -261,8 +297,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
 <button class="chip" data-f="defensor" aria-pressed="false"><span class="dot" data-c="defensor"></span>D. del Pueblo <b>19</b></button>
  </div>
  <div class="modes">
-  <button class="mode" id="m-practica" type="button" aria-pressed="false">Modo examen</button>
-  <button class="mode" id="m-simulacro" type="button" aria-pressed="false">Simulacro &middot; 40</button>
+  <button class="mode mode-go" id="m-open" type="button">Empezar examen</button>
  </div>
 </div></nav>
 
@@ -279,11 +314,11 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
 <section class="cat" id="simulacro">
 <header class="cat-h sim-h">
  <div>
-  <h2>Simulacro &middot; 40 preguntas</h2>
+  <h2 id="sim-title">Examen</h2>
   <p class="cat-m"><span class="dot"></span><span id="sim-mix">mezcla de los siete asuntos</span></p>
  </div>
  <div class="sim-actions">
-  <button class="mode" type="button" id="sim-new">Nuevo simulacro</button>
+  <button class="mode" type="button" id="sim-new">Nuevo examen</button>
   <button class="mode" type="button" id="sim-exit">Salir</button>
  </div>
 </header>
@@ -478,44 +513,101 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
 </footer>
 </div>
 
+<dialog class="setup" id="setup" aria-labelledby="su-h">
+<form class="setup-in" method="dialog" id="su-form">
+ <h2 id="su-h">Empezar examen</h2>
+
+ <fieldset class="su-block">
+  <legend>Asuntos</legend>
+  <div class="su-cats" id="su-cats"></div>
+  <div class="su-row">
+   <button type="button" class="su-mini" id="su-all">Todos</button>
+   <button type="button" class="su-mini" id="su-none">Ninguno</button>
+   <span class="su-count" id="su-count"></span>
+  </div>
+ </fieldset>
+
+ <fieldset class="su-block">
+  <legend>Banco de preguntas</legend>
+  <label class="su-opt"><input type="radio" name="bank" value="oficial" checked>
+   <span><b>Preguntas oficiales</b><i>Las 147 de los cuatro documentos de la academia, con su respuesta documentada y el art&iacute;culo que la sostiene.</i></span></label>
+  <label class="su-opt"><input type="radio" name="bank" value="ia">
+   <span><b>Preguntas nuevas</b><i>Generadas al momento sobre los mismos art&iacute;culos que ya se preguntan, para que no memorices enunciados. Necesita clave e internet.</i></span></label>
+ </fieldset>
+
+ <div class="su-block" id="su-key-block" hidden>
+  <div class="su-key">
+   <label class="su-note" for="su-key">Tu clave de Google AI Studio. Se guarda solo en este navegador y nunca sale de tu dispositivo salvo hacia la API de Google.</label>
+   <input type="password" id="su-key" placeholder="Pega aqu&iacute; tu clave" autocomplete="off" spellcheck="false">
+   <input type="text" id="su-model" placeholder="gemini-2.5-flash" autocomplete="off" spellcheck="false">
+   <p class="su-note">Cons&iacute;guela gratis en <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>. El segundo campo es el modelo: d&eacute;jalo como est&aacute; salvo que la API se queje.</p>
+  </div>
+  <p class="su-warn"><b>Aviso.</b> Estas preguntas las escribe una IA a partir del texto literal de los art&iacute;culos que ya se preguntan. Se comprueba que la cita exista de verdad antes de mostrarlas, pero <b>no las ha revisado una persona</b>. Si alguna te chirr&iacute;a, desc&aacute;rtala y f&iacute;ate del banco oficial.</p>
+ </div>
+
+ <fieldset class="su-block">
+  <legend>Longitud</legend>
+  <div class="su-lens">
+   <label class="su-len"><input type="radio" name="len" value="10">10<s>corto</s></label>
+   <label class="su-len"><input type="radio" name="len" value="20">20<s>medio</s></label>
+   <label class="su-len"><input type="radio" name="len" value="40" checked>40<s>simulacro</s></label>
+   <label class="su-len"><input type="radio" name="len" value="all">Todas<s>selecci&oacute;n</s></label>
+  </div>
+  <p class="su-note" id="su-len-note" hidden></p>
+ </fieldset>
+
+ <p class="su-err" id="su-err" hidden></p>
+ <p class="su-prog" id="su-prog" hidden><span><i id="su-bar"></i></span><em id="su-ptxt"></em></p>
+
+ <div class="su-foot">
+  <button type="button" class="mode" id="su-cancel">Cancelar</button>
+  <button type="button" class="mode mode-go su-go" id="su-go">Empezar</button>
+ </div>
+</form>
+</dialog>
+
 <script>
 (function(){
- var LET="abcdefgh".split("");
- var SIM_N=40;
- var KEY="temas12-c1-respuestas", KSIM="temas12-c1-simulacro";
- var cats=Array.prototype.slice.call(document.querySelectorAll(".cat[data-cat]"));
- var chips=Array.prototype.slice.call(document.querySelectorAll(".chip"));
- var qs=Array.prototype.slice.call(document.querySelectorAll(".q"));
- var pks=Array.prototype.slice.call(document.querySelectorAll("#plantilla .pk"));
+ var LET="abcd".split("");
+ var KSESS="temas12-c1-sesion", KKEY="temas12-c1-clave", KMODEL="temas12-c1-modelo";
+ var NAMES={constitucion:"Constitución",derechos:"Derechos",suspension:"Suspensión",
+            reforma:"Reforma",corona:"Corona",tc:"T. Constitucional",defensor:"D. del Pueblo"};
+ var CATS=Object.keys(NAMES);
+
+ var cats=[].slice.call(document.querySelectorAll(".cat[data-cat]"));
+ var chips=[].slice.call(document.querySelectorAll(".chip"));
+ var qs=[].slice.call(document.querySelectorAll(".q"));
+ var gen=[];
  var simBody=document.getElementById("sim-body");
  var simMix=document.getElementById("sim-mix");
- var bPract=document.getElementById("m-practica");
- var bSim=document.getElementById("m-simulacro");
+ var simTitle=document.getElementById("sim-title");
+ var dlg=document.getElementById("setup");
  var mode="estudio";
+ var sess={bank:"oficial",cats:CATS.slice(),len:"40",ids:[],ans:{},items:[],list:[]};
 
- var state={}; try{ state=JSON.parse(localStorage.getItem(KEY)||"{}")||{}; }catch(e){ state={}; }
- var sim={ids:[],ans:{},list:[]};
- try{ var raw=JSON.parse(localStorage.getItem(KSIM)||"null"); if(raw&&raw.ids&&raw.ids.length){ sim.ids=raw.ids; sim.ans=raw.ans||{}; } }catch(e){}
-
- function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
- function saveSim(){ try{ localStorage.setItem(KSIM,JSON.stringify({ids:sim.ids,ans:sim.ans})); }catch(e){} }
+ function all(){ return qs.concat(gen); }
+ function byId(id){ var r=null; all().forEach(function(q){ if(q.id===id) r=q; }); return r; }
+ function saveSess(){ try{ localStorage.setItem(KSESS,JSON.stringify(
+   {bank:sess.bank,cats:sess.cats,len:sess.len,ids:sess.ids,ans:sess.ans,items:sess.items})); }catch(e){} }
  function pad(n){ return ("00"+n).slice(-3); }
  function mix(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
- function answers(){ return mode==="simulacro" ? sim.ans : state; }
+ function answers(){ return mode==="sesion" ? sess.ans : {}; }
+ function esc(t){ return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
- qs.forEach(function(q,i){
+ /* ---------- registro de preguntas ---------- */
+ function register(q,i,home){
   q.dataset.ok0=q.dataset.ok;
-  q.dataset.idx=i;
-  q.dataset.cat=q.parentNode.dataset.cat||"";
-  q._home=q.parentNode;
+  if(q.dataset.idx===undefined) q.dataset.idx=i;
+  if(home){ q.dataset.cat=home.dataset.cat||""; q._home=home; }
   q.dataset.n0=q.querySelector(".q-n").textContent;
   q.dataset.src0=q.querySelector(".q-src").innerHTML;
   q.querySelectorAll(".opt").forEach(function(o){ o.dataset.k0=o.dataset.k; });
- });
+ }
+ qs.forEach(function(q,i){ register(q,i,q.parentNode); });
 
  function shuffle(q){
   var ol=q.querySelector(".opts");
-  mix(Array.prototype.slice.call(ol.children)).forEach(function(o,i){
+  mix([].slice.call(ol.children)).forEach(function(o,i){
    ol.appendChild(o);
    o.dataset.k=LET[i];
    var b=o.querySelector(".bub"); if(b) b.textContent=LET[i];
@@ -530,7 +622,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   if(em) em.textContent = map[em.dataset.ref] || em.dataset.ref;
   var ul=q.querySelector(".why-mal");
   if(!ul) return;
-  var lis=Array.prototype.slice.call(ul.children);
+  var lis=[].slice.call(ul.children);
   lis.forEach(function(li){
    var nk = map[li.dataset.ref] || li.dataset.ref;
    li.dataset.cur=nk;
@@ -539,23 +631,18 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   lis.sort(function(a,b){ return a.dataset.cur < b.dataset.cur ? -1 : 1; })
      .forEach(function(li){ ul.appendChild(li); });
  }
- function syncKey(){
-  qs.forEach(function(q,i){
-   var b=pks[i]&&pks[i].querySelector("b");
-   if(b) b.textContent=q.dataset.ok.toUpperCase();
-  });
- }
 
+ /* ---------- navegar por asuntos (modo estudio) ---------- */
  chips.forEach(function(c){
   c.addEventListener("click",function(){
    chips.forEach(function(o){ o.setAttribute("aria-pressed", o===c?"true":"false"); });
    var f=c.dataset.f;
    cats.forEach(function(sec){ sec.classList.toggle("off", f!=="all" && sec.dataset.cat!==f); });
-   tally();
    window.scrollTo({top:document.querySelector(".bar").offsetTop-8,behavior:"instant"});
   });
  });
 
+ /* ---------- marcador ---------- */
  function paint(q){
   var pick=answers()[q.id];
   q.classList.remove("answered","hit","miss");
@@ -565,23 +652,11 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   var ok = pick===q.dataset.ok0;
   q.classList.add("answered", ok?"hit":"miss");
   if(v) v.textContent = ok ? "Correcta" : "Incorrecta";
-  if(!ok){
-   var sel=q.querySelector('.opt[data-k0="'+pick+'"]');
-   if(sel) sel.classList.add("picked-bad");
-  }
+  if(!ok){ var sel=q.querySelector('.opt[data-k0="'+pick+'"]'); if(sel) sel.classList.add("picked-bad"); }
  }
-
- function active(){
-  if(mode==="simulacro") return sim.list;
-  return qs.filter(function(q){ return !q._home.classList.contains("off"); });
- }
-
  function tally(){
-  var list=active(), a=answers(), done=0, hit=0;
-  list.forEach(function(q){
-   var p=a[q.id]; if(!p) return;
-   done++; if(p===q.dataset.ok0) hit++;
-  });
+  var list = mode==="sesion" ? sess.list : [], a=answers(), done=0, hit=0;
+  list.forEach(function(q){ var p=a[q.id]; if(!p) return; done++; if(p===q.dataset.ok0) hit++; });
   var miss=done-hit, total=list.length||1;
   document.getElementById("s-done").textContent=done;
   document.getElementById("s-total").textContent=list.length;
@@ -592,31 +667,28 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   var note=document.getElementById("s-note");
   var full = done===list.length && list.length>0;
   note.hidden=!full;
-  if(full) note.textContent = mode==="simulacro" ? "simulacro completo" : "todo contestado";
+  if(full) note.textContent="examen completo";
  }
-
  function answer(q,opt){
   if(q.classList.contains("answered")) return;
-  if(mode==="simulacro"){ sim.ans[q.id]=opt.dataset.k0; saveSim(); }
-  else { state[q.id]=opt.dataset.k0; save(); }
+  sess.ans[q.id]=opt.dataset.k0; saveSess();
   paint(q); tally(); focusable();
  }
- qs.forEach(function(q){
-  q.querySelectorAll(".opt").forEach(function(opt){
-   opt.addEventListener("click",function(){
-    if(document.body.classList.contains("exam")) answer(q,opt);
-   });
-   opt.addEventListener("keydown",function(ev){
-    if((ev.key==="Enter"||ev.key===" ") && document.body.classList.contains("exam")){
-     ev.preventDefault(); answer(q,opt);
-    }
-   });
-  });
+ document.addEventListener("click",function(ev){
+  var opt=ev.target.closest?ev.target.closest(".opt"):null;
+  if(!opt || !document.body.classList.contains("exam")) return;
+  var q=opt.closest(".q"); if(q) answer(q,opt);
  });
-
+ document.addEventListener("keydown",function(ev){
+  if(ev.key!=="Enter" && ev.key!==" ") return;
+  var opt=ev.target.closest?ev.target.closest(".opt"):null;
+  if(!opt || !document.body.classList.contains("exam")) return;
+  ev.preventDefault();
+  var q=opt.closest(".q"); if(q) answer(q,opt);
+ });
  function focusable(){
-  var on=mode!=="estudio";
-  qs.forEach(function(q){
+  var on=mode==="sesion";
+  all().forEach(function(q){
    q.querySelectorAll(".opt").forEach(function(o){
     if(on && !q.classList.contains("answered")){ o.setAttribute("tabindex","0"); o.setAttribute("role","button"); }
     else { o.removeAttribute("tabindex"); o.removeAttribute("role"); }
@@ -624,42 +696,210 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   });
  }
 
- function pick(){
-  var pool={}, quota=[], sum=0;
-  qs.forEach(function(q){ (pool[q.dataset.cat]=pool[q.dataset.cat]||[]).push(q); });
-  Object.keys(pool).forEach(function(c){
-   var exact=pool[c].length*SIM_N/qs.length, n=Math.floor(exact);
-   quota.push({c:c,n:n,r:exact-n}); sum+=n;
+ /* ---------- corpus: los preceptos que de verdad se preguntan ---------- */
+ function corpus(sel){
+  var refs={}, stems=[];
+  qs.forEach(function(q){
+   if(sel.indexOf(q.dataset.cat)<0) return;
+   var st=q.querySelector(".stem");
+   if(st && stems.length<14) stems.push(st.textContent.trim());
+   q.querySelectorAll(".cita").forEach(function(bq){
+    var c=bq.querySelector("cite"); if(!c) return;
+    var ref=c.textContent.trim();
+    var txt=[].map.call(bq.querySelectorAll("p"),function(p){ return p.textContent.trim(); }).join("\n");
+    if(!refs[ref]) refs[ref]=txt;
+   });
   });
-  quota.sort(function(a,b){ return b.r-a.r; });
-  for(var i=0; sum<SIM_N; i++, sum++) quota[i%quota.length].n++;
+  return {refs:refs, stems:stems};
+ }
+ function norm(t){
+  return String(t||"").replace(/[«»""'']/g,"").replace(/\s+/g," ").trim().toLowerCase();
+ }
+
+ /* ---------- generacion con IA ---------- */
+ var SCHEMA={type:"object",properties:{preguntas:{type:"array",items:{type:"object",
+   properties:{enunciado:{type:"string"},opciones:{type:"array",items:{type:"string"}},
+    correcta:{type:"integer"},articulo:{type:"string"},cita:{type:"string"},
+    porque:{type:"string"},fallos:{type:"array",items:{type:"string"}},asunto:{type:"string"}},
+   required:["enunciado","opciones","correcta","articulo","cita","porque","fallos","asunto"]}}},
+  required:["preguntas"]};
+
+ function prompt(cp,sel,n){
+  var mat=Object.keys(cp.refs).map(function(r){ return "["+r+"]\n"+cp.refs[r]; }).join("\n\n");
+  return [
+  "Eres preparador de la oposición C1 Administrativo del Estado (turno libre) en España.",
+  "Escribes preguntas de test con el mismo tono, formato y dificultad que las oficiales del INAP.",
+  "",
+  "MATERIAL PERMITIDO. Es el ÚNICO material que puedes usar. No introduzcas ningún otro artículo,",
+  "ley, plazo, mayoría, número ni institución que no aparezca literalmente aquí:",
+  "",
+  mat,
+  "",
+  "ASUNTOS DISPONIBLES (usa exactamente una de estas claves en el campo \"asunto\"): "+sel.join(", "),
+  "",
+  "EJEMPLOS DE TONO. No los copies ni los reformules; imita solo el registro y la forma de preguntar:",
+  cp.stems.map(function(s){ return "- "+s; }).join("\n"),
+  "",
+  "Escribe "+n+" preguntas NUEVAS respetando estas reglas sin excepción:",
+  "1. Cada pregunta versa sobre uno de los preceptos del material permitido y solo sobre lo que ese texto dice.",
+  "2. Cuatro opciones y exactamente una correcta. Las tres incorrectas han de ser plausibles: cambia una",
+  "   palabra, un plazo, una mayoría, un órgano o un número tomándolo del propio material.",
+  "3. El campo \"cita\" ha de ser un fragmento COPIADO CARÁCTER A CARÁCTER del material permitido, sin",
+  "   reformular ni resumir, y ha de sostener por sí solo la respuesta correcta. Si no puedes copiar un",
+  "   fragmento que la sostenga, no escribas esa pregunta: escribe otra.",
+  "4. El campo \"articulo\" ha de ser exactamente una de las referencias entre corchetes del material.",
+  "5. \"porque\" son una o dos frases explicando por qué la correcta lo es. \"fallos\" son tres frases, una",
+  "   por cada opción incorrecta y en el mismo orden en que aparecen en \"opciones\", diciendo por qué cae cada una.",
+  "6. \"correcta\" es el índice (0 a 3) de la opción correcta dentro de \"opciones\".",
+  "7. Varía la forma de preguntar entre unas y otras: completar el precepto, señalar la correcta, señalar",
+  "   la incorrecta, pedir el plazo o la mayoría, preguntar la ubicación sistemática de un artículo.",
+  "8. Español de España, registro neutro y directo, sin florituras ni segunda persona."
+  ].join("\n");
+ }
+
+ function callAPI(key,model,body){
+  var url="https://generativelanguage.googleapis.com/v1beta/models/"+
+    encodeURIComponent(model)+":generateContent?key="+encodeURIComponent(key);
+  return fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+   .then(function(r){
+     return r.text().then(function(t){
+      var j=null; try{ j=JSON.parse(t); }catch(e){}
+      if(!r.ok){
+       var msg=(j&&j.error&&j.error.message)||("HTTP "+r.status);
+       if(r.status===400 && /API key/i.test(msg)) msg="La clave no es válida. Revísala y vuelve a pegarla.";
+       if(r.status===403) msg="La clave no tiene permiso para este modelo, o la API no está habilitada.";
+       if(r.status===404) msg="Ese modelo no existe para tu clave. Prueba con otro nombre de modelo.";
+       if(r.status===429) msg="Has agotado la cuota por ahora. Espera un rato o usa el banco oficial.";
+       throw new Error(msg);
+      }
+      return j;
+     });
+   });
+ }
+
+ function extract(j){
+  try{
+   var parts=j.candidates[0].content.parts, txt="";
+   parts.forEach(function(p){ if(p.text) txt+=p.text; });
+   return JSON.parse(txt).preguntas||[];
+  }catch(e){ return []; }
+ }
+
+ /* valida contra el corpus: descarta invenciones */
+ function validate(items,cp,sel,seen){
+  var refsNorm={}, blob="";
+  Object.keys(cp.refs).forEach(function(r){
+   refsNorm[norm(r)]=r; blob += " " + norm(cp.refs[r]);
+  });
   var out=[];
-  quota.forEach(function(x){ out=out.concat(mix(pool[x.c].slice()).slice(0,x.n)); });
-  return mix(out).map(function(q){ return q.id; });
- }
-
- function buildSim(fresh){
-  if(sim.list.length) unmountSim();
-  if(fresh || !sim.ids.length || sim.ids.length!==SIM_N){
-   sim.ids=pick(); sim.ans={}; saveSim();
-  }
-  sim.list=sim.ids.map(function(id){ return document.getElementById(id); }).filter(Boolean);
-  var count={};
-  sim.list.forEach(function(q,i){
-   count[q.dataset.cat]=(count[q.dataset.cat]||0)+1;
-   if(fresh) shuffle(q);
-   q.style.setProperty("--cc","var(--c-"+q.dataset.cat+")");
-   q.querySelector(".q-n").textContent=pad(i+1);
-   q.querySelector(".q-src").innerHTML="nº&nbsp;"+q.dataset.n0+" del listado · "+q.dataset.src0;
-   simBody.appendChild(q);
+  items.forEach(function(it){
+   if(!it || !it.enunciado || !Array.isArray(it.opciones) || it.opciones.length!==4) return;
+   if(!Array.isArray(it.fallos) || it.fallos.length!==3) return;
+   var ci=parseInt(it.correcta,10);
+   if(!(ci>=0 && ci<=3)) return;
+   var o=it.opciones.map(function(x){ return String(x||"").trim(); });
+   if(o.some(function(x){ return !x; })) return;
+   var uniq={}; o.forEach(function(x){ uniq[norm(x)]=1; });
+   if(Object.keys(uniq).length!==4) return;                 // opciones repetidas
+   var ref=refsNorm[norm(it.articulo)];
+   if(!ref) return;                                          // articulo inventado
+   var cita=norm(it.cita);
+   if(cita.length<25) return;                                // cita demasiado corta para verificar
+   if(blob.indexOf(cita)<0) return;                          // cita inventada
+   var k=norm(it.enunciado);
+   if(seen[k]) return; seen[k]=1;                            // enunciado repetido
+   var cat = sel.indexOf(it.asunto)>=0 ? it.asunto : sel[0];
+   out.push({stem:it.enunciado.trim(),opts:o,ok:ci,ref:ref,cita:String(it.cita).trim(),
+             porque:String(it.porque||"").trim(),fallos:it.fallos.map(function(x){return String(x||"").trim();}),
+             cat:cat});
   });
-  if(fresh) syncKey();
-  var names={"constitucion": "Constitución", "derechos": "Derechos", "suspension": "Suspensión", "reforma": "Reforma", "corona": "Corona", "tc": "T. Constitucional", "defensor": "D. del Pueblo"};
-  simMix.textContent=Object.keys(names).filter(function(c){ return count[c]; })
-   .map(function(c){ return count[c]+" "+names[c]; }).join(" · ");
+  return out;
  }
 
- function unmountSim(){
+ function buildNode(it,i){
+  var id="g"+(i+1);
+  var okLet=LET[it.ok];
+  var lis=it.opts.map(function(t,j){
+   var k=LET[j], right = j===it.ok;
+   return '<li class="opt'+(right?' is-right':'')+'" data-k="'+k+'">'+
+     '<span class="bub" aria-hidden="true">'+k+'</span>'+
+     '<span class="opt-t">'+esc(t)+'</span>'+
+     (right?'<span class="badge gen-badge">respuesta generada</span>':'')+'</li>';
+  }).join("");
+  var mal=[], n=0;
+  it.opts.forEach(function(t,j){
+   if(j===it.ok) return;
+   mal.push('<li data-ref="'+LET[j]+'"><i>'+LET[j]+')</i> '+esc(it.fallos[n]||"")+'</li>'); n++;
+  });
+  var art=document.createElement("article");
+  art.className="q gen"; art.id=id; art.dataset.ok=okLet;
+  art.innerHTML =
+   '<div class="q-meta"><span class="q-n">'+pad(i+1)+'</span><span class="verdict"></span>'+
+   '<span class="q-src"><span class="gen-tag">generada</span></span>'+
+   '<button class="q-drop" type="button" data-drop="'+id+'">descartar</button></div>'+
+   '<div class="q-body"><p class="stem">'+esc(it.stem)+'</p>'+
+   '<ol class="opts">'+lis+'</ol>'+
+   '<div class="why"><span class="why-l">El precepto</span>'+
+   '<blockquote class="cita"><p>«'+esc(it.cita.replace(/^«|»$/g,""))+'»</p><cite>'+esc(it.ref)+'</cite></blockquote>'+
+   '<p class="why-ok"><b>Por qué la <em data-ref="'+okLet+'">'+okLet+'</em>)</b> '+esc(it.porque)+'</p>'+
+   '<ul class="why-mal">'+mal.join("")+'</ul></div></div>';
+  art.dataset.cat=it.cat;
+  return art;
+ }
+
+ function mountGen(items){
+  gen.forEach(function(q){ if(q.parentNode) q.parentNode.removeChild(q); });
+  gen=[];
+  items.forEach(function(it,i){
+   var node=buildNode(it,i);
+   simBody.appendChild(node);
+   register(node,i,null);
+   node.dataset.cat=it.cat;
+   node.style.setProperty("--cc","var(--c-"+it.cat+")");
+   gen.push(node);
+  });
+  return gen;
+ }
+
+ document.addEventListener("click",function(ev){
+  var b=ev.target.closest?ev.target.closest("[data-drop]"):null;
+  if(!b) return;
+  var id=b.dataset.drop, q=byId(id);
+  if(!q) return;
+  gen=gen.filter(function(x){ return x!==q; });
+  sess.list=sess.list.filter(function(x){ return x!==q; });
+  sess.ids=sess.ids.filter(function(x){ return x!==id; });
+  sess.items=sess.items.filter(function(_,i){ return "g"+(i+1)!==id; });
+  delete sess.ans[id];
+  if(q.parentNode) q.parentNode.removeChild(q);
+  saveSess(); renumber(); tally();
+ });
+ function renumber(){
+  sess.list.forEach(function(q,i){ q.querySelector(".q-n").textContent=pad(i+1); });
+ }
+
+ /* ---------- seleccion de preguntas oficiales ---------- */
+ function pickOfficial(sel,n){
+  var pool=qs.filter(function(q){ return sel.indexOf(q.dataset.cat)>=0; });
+  if(n===null || n>=pool.length) return mix(pool.slice());
+  var byCat={};
+  pool.forEach(function(q){ (byCat[q.dataset.cat]=byCat[q.dataset.cat]||[]).push(q); });
+  var out=[], keys=Object.keys(byCat);
+  keys.forEach(function(c){
+   var take=Math.max(1,Math.round(n*byCat[c].length/pool.length));
+   out=out.concat(mix(byCat[c]).slice(0,take));
+  });
+  out=mix(out);
+  if(out.length>n) out=out.slice(0,n);
+  if(out.length<n){
+   var rest=mix(pool.filter(function(q){ return out.indexOf(q)<0; }));
+   out=out.concat(rest.slice(0,n-out.length));
+  }
+  return out;
+ }
+
+ /* ---------- montar y desmontar la sesion ---------- */
+ function unmount(){
   cats.forEach(function(sec){
    qs.filter(function(q){ return q._home===sec; })
      .sort(function(a,b){ return a.dataset.idx-b.dataset.idx; })
@@ -670,47 +910,207 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
       q.querySelector(".q-src").innerHTML=q.dataset.src0;
      });
   });
-  sim.list=[];
+  gen.forEach(function(q){ if(q.parentNode) q.parentNode.removeChild(q); });
+  gen=[];
+  sess.list=[];
  }
 
- function setMode(m,fresh){
-  if(m===mode && !fresh) m="estudio";
-  var prev=mode; mode=m;
-  if(prev==="simulacro" && mode!=="simulacro") unmountSim();
-  document.body.classList.toggle("exam", mode!=="estudio");
-  document.body.classList.toggle("sim", mode==="simulacro");
-  if(mode==="simulacro") buildSim(!!fresh);
-  bPract.setAttribute("aria-pressed", mode==="practica"?"true":"false");
-  bPract.textContent = mode==="practica" ? "Ver respuestas" : "Modo examen";
-  bSim.setAttribute("aria-pressed", mode==="simulacro"?"true":"false");
-  bSim.textContent = mode==="simulacro" ? "Salir del simulacro" : "Simulacro · 40";
-  qs.forEach(paint); focusable(); tally();
-  var bar=document.querySelector(".bar");
-  window.scrollTo({top:mode==="simulacro"?bar.offsetTop-8:window.scrollY,behavior:"instant"});
+ function mount(){
+  var list=sess.list;
+  simTitle.textContent = (sess.bank==="ia" ? "Preguntas nuevas" : "Examen") + " · " + list.length +
+    (list.length===1?" pregunta":" preguntas");
+  var count={};
+  list.forEach(function(q,i){
+   count[q.dataset.cat]=(count[q.dataset.cat]||0)+1;
+   q.style.setProperty("--cc","var(--c-"+q.dataset.cat+")");
+   q.querySelector(".q-n").textContent=pad(i+1);
+   if(sess.bank!=="ia") q.querySelector(".q-src").innerHTML="nº&nbsp;"+q.dataset.n0+" del listado · "+q.dataset.src0;
+   simBody.appendChild(q);
+  });
+  simMix.textContent=CATS.filter(function(c){ return count[c]; })
+   .map(function(c){ return count[c]+" "+NAMES[c]; }).join(" · ");
+  document.body.classList.add("exam","sim");
+  mode="sesion";
+  all().forEach(paint); focusable(); tally();
+  window.scrollTo({top:document.querySelector(".bar").offsetTop-8,behavior:"instant"});
  }
 
- bPract.addEventListener("click",function(){ setMode("practica"); });
- bSim.addEventListener("click",function(){ setMode("simulacro"); });
- document.getElementById("sim-exit").addEventListener("click",function(){ setMode("estudio"); });
- document.getElementById("sim-new").addEventListener("click",function(){
-  if(Object.keys(sim.ans).length && !confirm("¿Empezar un simulacro nuevo? Se pierden las respuestas de este.")) return;
-  setMode("simulacro",true);
- });
+ function exitSession(){
+  mode="estudio";
+  document.body.classList.remove("exam","sim");
+  unmount();
+  all().forEach(paint); focusable(); tally();
+  try{ localStorage.removeItem(KSESS); }catch(e){}
+  sess.ids=[]; sess.ans={}; sess.items=[];
+ }
 
- document.getElementById("s-reset").addEventListener("click",function(){
-  if(mode==="simulacro"){
-   if(!confirm("¿Borrar las respuestas de este simulacro?")) return;
-   sim.ans={}; saveSim();
-  } else {
-   if(!confirm("¿Borrar las respuestas marcadas y empezar de cero?")) return;
-   state={}; save();
+ /* ---------- la card ---------- */
+ var suCats=document.getElementById("su-cats");
+ var suCount=document.getElementById("su-count");
+ var suErr=document.getElementById("su-err");
+ var suProg=document.getElementById("su-prog");
+ var suBar=document.getElementById("su-bar");
+ var suPtxt=document.getElementById("su-ptxt");
+ var suGo=document.getElementById("su-go");
+ var suKeyBlock=document.getElementById("su-key-block");
+ var suKey=document.getElementById("su-key");
+ var suModel=document.getElementById("su-model");
+ var suLenNote=document.getElementById("su-len-note");
+
+ var counts={};
+ CATS.forEach(function(c){ counts[c]=qs.filter(function(q){ return q.dataset.cat===c; }).length; });
+ suCats.innerHTML=CATS.map(function(c){
+  return '<label class="su-cat"><input type="checkbox" value="'+c+'" checked>'+
+   '<span class="dot" data-c="'+c+'"></span>'+NAMES[c]+' <b>'+counts[c]+'</b></label>';
+ }).join("");
+
+ function selCats(){
+  return [].slice.call(suCats.querySelectorAll("input:checked")).map(function(i){ return i.value; });
+ }
+ function bank(){ return document.querySelector('input[name="bank"]:checked').value; }
+ function len(){ return document.querySelector('input[name="len"]:checked').value; }
+
+ function refresh(){
+  var sel=selCats(), n=0;
+  sel.forEach(function(c){ n+=counts[c]; });
+  suCount.textContent = n + (n===1?" pregunta":" preguntas");
+  var ia = bank()==="ia";
+  suKeyBlock.hidden=!ia;
+  var L=len();
+  if(ia && L==="all"){ suLenNote.hidden=false; suLenNote.textContent="Con preguntas nuevas, «Todas» genera 40 como máximo."; }
+  else if(!ia && L!=="all" && parseInt(L,10)>n){ suLenNote.hidden=false; suLenNote.textContent="Tu selección solo tiene "+n+" preguntas: el examen será de "+n+"."; }
+  else suLenNote.hidden=true;
+  suGo.disabled = n===0;
+  if(n===0){ suErr.hidden=false; suErr.textContent="Elige al menos un asunto."; }
+  else suErr.hidden=true;
+ }
+ suCats.addEventListener("change",refresh);
+ document.getElementById("su-form").addEventListener("change",refresh);
+ document.getElementById("su-all").addEventListener("click",function(){
+  suCats.querySelectorAll("input").forEach(function(i){ i.checked=true; }); refresh(); });
+ document.getElementById("su-none").addEventListener("click",function(){
+  suCats.querySelectorAll("input").forEach(function(i){ i.checked=false; }); refresh(); });
+
+ function openCard(){
+  try{
+   var k=localStorage.getItem(KKEY); if(k) suKey.value=k;
+   var m=localStorage.getItem(KMODEL); if(m) suModel.value=m;
+  }catch(e){}
+  suProg.hidden=true; refresh();
+  if(typeof dlg.showModal==="function") dlg.showModal(); else dlg.setAttribute("open","");
+ }
+ function closeCard(){
+  if(typeof dlg.close==="function"){ try{ dlg.close(); }catch(e){ dlg.removeAttribute("open"); } }
+  else dlg.removeAttribute("open");
+ }
+ document.getElementById("m-open").addEventListener("click",openCard);
+ document.getElementById("su-cancel").addEventListener("click",closeCard);
+ document.getElementById("sim-new").addEventListener("click",openCard);
+ document.getElementById("sim-exit").addEventListener("click",exitSession);
+
+ function progress(p,txt){ suProg.hidden=false; suBar.style.width=Math.round(p*100)+"%"; suPtxt.textContent=txt; }
+
+ suGo.addEventListener("click",function(){
+  var sel=selCats(); if(!sel.length) return refresh();
+  var L=len(), b=bank();
+  suErr.hidden=true;
+  if(b!=="ia"){
+   var n = L==="all" ? null : parseInt(L,10);
+   sess={bank:"oficial",cats:sel,len:L,ids:[],ans:{},items:[],list:[]};
+   unmount();
+   sess.list=pickOfficial(sel,n);
+   sess.list.forEach(shuffle);
+   sess.ids=sess.list.map(function(q){ return q.id; });
+   saveSess(); closeCard(); mount();
+   return;
   }
-  qs.forEach(paint); tally(); focusable();
+  var key=(suKey.value||"").trim();
+  var model=(suModel.value||"").trim()||"gemini-2.5-flash";
+  if(!key){ suErr.hidden=false; suErr.textContent="Pega tu clave de Google AI Studio para generar preguntas nuevas."; return; }
+  try{ localStorage.setItem(KKEY,key); localStorage.setItem(KMODEL,model); }catch(e){}
+  var want = L==="all" ? 40 : parseInt(L,10);
+  generate(sel,want,key,model);
  });
 
+ function generate(sel,want,key,model){
+  var cp=corpus(sel);
+  if(!Object.keys(cp.refs).length){ suErr.hidden=false; suErr.textContent="No hay preceptos en esa selección."; return; }
+  suGo.disabled=true;
+  var got=[], seen={}, round=0, MAXR=4, BATCH=Math.min(10,want);
+  progress(0.04,"pidiendo preguntas…");
+  function step(){
+   round++;
+   var falta=want-got.length;
+   var n=Math.min(BATCH,falta);
+   var body={contents:[{role:"user",parts:[{text:prompt(cp,sel,n)}]}],
+     generationConfig:{temperature:1,topP:.95,responseMimeType:"application/json",responseSchema:SCHEMA}};
+   return callAPI(key,model,body).then(function(j){
+    var ok=validate(extract(j),cp,sel,seen);
+    got=got.concat(ok);
+    progress(Math.min(.95,got.length/want),got.length+" de "+want+" verificadas");
+    if(got.length>=want || round>=MAXR) return finish();
+    return step();
+   });
+  }
+  function finish(){
+   suGo.disabled=false;
+   if(!got.length){
+    suErr.hidden=false;
+    suErr.textContent="La IA no devolvió ninguna pregunta que pasara la verificación. Prueba otra vez o usa el banco oficial.";
+    suProg.hidden=true; return;
+   }
+   got=got.slice(0,want);
+   sess={bank:"ia",cats:sel,len:String(want),ids:[],ans:{},items:got,list:[]};
+   unmount();
+   sess.list=mountGen(got);
+   sess.list.forEach(shuffle);
+   sess.ids=sess.list.map(function(q){ return q.id; });
+   saveSess();
+   progress(1,got.length+" listas");
+   closeCard(); suProg.hidden=true; mount();
+   if(got.length<want){
+    var note=document.getElementById("s-note");
+    note.hidden=false; note.textContent="salieron "+got.length+" de "+want+" (el resto no pasó la verificación)";
+   }
+  }
+  step().catch(function(e){
+   suGo.disabled=false; suProg.hidden=true; suErr.hidden=false;
+   var m=(e && e.message) ? e.message : "";
+   if(!m || /failed to fetch|networkerror|load failed/i.test(m))
+    m="No hay conexión con la API. Comprueba que tienes internet; el banco oficial funciona sin red.";
+   suErr.textContent=m;
+  });
+ }
+
+ /* ---------- plantilla de correccion ---------- */
+ var pks=[].slice.call(document.querySelectorAll("#plantilla .pk"));
+ function syncKey(){
+  qs.forEach(function(q,i){
+   var b=pks[i]&&pks[i].querySelector("b");
+   if(b) b.textContent=q.dataset.ok.toUpperCase();
+  });
+ }
+
+ /* ---------- arranque ---------- */
+ dlg.removeAttribute("open");
  qs.forEach(shuffle);
  syncKey();
- qs.forEach(paint);
- tally();
+ (function restore(){
+  var raw=null; try{ raw=JSON.parse(localStorage.getItem(KSESS)||"null"); }catch(e){}
+  if(!raw || !raw.ids || !raw.ids.length) return;
+  sess.bank=raw.bank||"oficial"; sess.cats=raw.cats||CATS.slice();
+  sess.len=raw.len||"40"; sess.ans=raw.ans||{}; sess.items=raw.items||[];
+  if(sess.bank==="ia"){
+   if(!sess.items.length) return;
+   sess.list=mountGen(sess.items);
+  } else {
+   sess.list=raw.ids.map(function(id){ return byId(id); }).filter(Boolean);
+   if(!sess.list.length) return;
+  }
+  sess.ids=sess.list.map(function(q){ return q.id; });
+  sess.list.forEach(shuffle);
+  mount();
+ })();
+ all().forEach(paint); focusable(); tally();
 })();
 </script>
