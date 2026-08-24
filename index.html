@@ -592,6 +592,13 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  function pad(n){ return ("00"+n).slice(-3); }
  function mix(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
  function answers(){ return mode==="sesion" ? sess.ans : {}; }
+ function arriba(){
+  window.scrollTo({top:0,left:0,behavior:"instant"});
+  document.documentElement.scrollTop=0; document.body.scrollTop=0;
+  if(location.hash || location.search){
+   try{ history.replaceState(null,"",location.pathname); }catch(e){}
+  }
+ }
  function esc(t){ return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
  /* ---------- registro de preguntas ---------- */
@@ -935,6 +942,17 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   window.scrollTo({top:document.querySelector(".bar").offsetTop-8,behavior:"instant"});
  }
 
+ function resetSession(){
+  sess.ans={};
+  if(mode==="sesion" && sess.list.length){
+   sess.list.forEach(shuffle);
+   sess.list.forEach(function(q,i){ q.querySelector(".q-n").textContent=pad(i+1); });
+  }
+  saveSess();
+  all().forEach(paint); focusable(); tally();
+  arriba();
+ }
+
  function exitSession(){
   mode="estudio";
   document.body.classList.remove("exam","sim");
@@ -1007,6 +1025,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  document.getElementById("su-cancel").addEventListener("click",closeCard);
  document.getElementById("sim-new").addEventListener("click",openCard);
  document.getElementById("sim-exit").addEventListener("click",exitSession);
+ document.getElementById("s-reset").addEventListener("click",resetSession);
 
  function progress(p,txt){ suProg.hidden=false; suBar.style.width=Math.round(p*100)+"%"; suPtxt.textContent=txt; }
 
@@ -1092,6 +1111,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  }
 
  /* ---------- arranque ---------- */
+ if("scrollRestoration" in history){ try{ history.scrollRestoration="manual"; }catch(e){} }
  dlg.removeAttribute("open");
  qs.forEach(shuffle);
  syncKey();
@@ -1112,5 +1132,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   mount();
  })();
  all().forEach(paint); focusable(); tally();
+ arriba();
+ window.addEventListener("load",arriba);
+ window.addEventListener("pageshow",function(ev){ if(ev.persisted) arriba(); });
 })();
 </script>
