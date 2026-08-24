@@ -52,6 +52,7 @@
 }
 
 *{box-sizing:border-box}
+[hidden]{display:none !important}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;
  -webkit-font-smoothing:antialiased}
 .wrap{max-width:52rem;margin:0 auto;padding:0 1.5rem 5rem}
@@ -181,6 +182,27 @@ body.exam .score{display:block}
  text-decoration:underline;text-underline-offset:2px}
 .score-reset:hover{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.score-bar i{transition:none}}
+.score-clock{display:flex;justify-content:space-between;align-items:center;gap:.6rem;
+ margin:-.1rem 0 .55rem;padding-bottom:.5rem;border-bottom:1px solid var(--rule)}
+.score-clock b{font-family:var(--disp);font-size:1.3rem;line-height:1;color:var(--ink);
+ font-variant-numeric:tabular-nums;letter-spacing:.01em}
+.score-clock.low b{color:var(--bad)}
+.score-clock.up b{font-size:1.05rem;color:var(--ink2)}
+.clock-btn{font:inherit;color:var(--ink2);background:var(--surf-2);border:1px solid var(--rule);
+ border-radius:5px;padding:.25rem .5rem;cursor:pointer;letter-spacing:.04em;flex:none}
+.clock-btn:hover{color:var(--ink);border-color:var(--ink3)}
+.clock-tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;
+ color:var(--ink3);flex:none}
+
+.veil{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;padding:1.5rem;
+ background:var(--bg);background:color-mix(in srgb,var(--bg) 84%,transparent);backdrop-filter:blur(8px)}
+.veil-card{background:var(--surf);border:1px solid var(--rule);border-radius:12px;padding:1.5rem 1.6rem 1.4rem;
+ max-width:24rem;text-align:center;box-shadow:0 18px 50px rgba(8,14,18,.28)}
+.veil-card h2{font-size:1.25rem;margin-bottom:.45rem}
+.veil-card p{margin:0 0 1.1rem;font-size:.86rem;color:var(--ink2);line-height:1.55}
+.veil-foot{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap}
+.veil-card .veil-t{font-family:var(--disp);font-size:2rem;line-height:1;color:var(--ink);
+ font-variant-numeric:tabular-nums;margin:0 0 .6rem}
 
 .mode-go{background:var(--accent);border-color:var(--accent);color:#fff}
 .setup::backdrop{background:rgba(8,14,18,.62);backdrop-filter:blur(3px)}
@@ -219,6 +241,10 @@ body.exam .score{display:block}
 .su-len:has(input:checked){border-color:var(--accent);background:var(--accent-s)}
 .su-len:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
 .su-len input{position:absolute;opacity:0;width:0;height:0}
+.su-len input[type=number]{position:static;opacity:1;width:3.3rem;height:auto;text-align:center;
+ font:600 .9rem/1.2 var(--disp);color:var(--ink);background:var(--bg);border:1px solid var(--rule);
+ border-radius:5px;padding:.1rem .2rem;margin-right:.15rem}
+.su-len input[type=number]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .su-len s{display:block;text-decoration:none;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;
  text-transform:uppercase;color:var(--ink3);margin-top:.15rem}
 .su-key{display:grid;gap:.45rem}
@@ -302,6 +328,11 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
 </div></nav>
 
 <aside class="score" id="score" aria-live="polite" aria-label="Marcador del modo examen">
+ <div class="score-clock" id="s-clock" hidden>
+  <b id="s-time">--:--</b>
+  <span class="clock-tag" id="s-tag">restante</span>
+  <button class="clock-btn" id="s-pause" type="button">Pausar</button>
+ </div>
  <div class="score-top"><span>respondidas</span><b><span id="s-done">0</span>/<span id="s-total">151</span></b></div>
  <div class="score-bar"><i id="s-bar"></i></div>
  <div class="score-row"><span class="h">aciertos</span><b class="h" id="s-hit">0</b></div>
@@ -309,6 +340,18 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  <div class="score-foot"><span>nota <b id="s-score">0,00</b></span><button class="score-reset" id="s-reset" type="button">Reiniciar</button></div>
  <div class="score-note" id="s-note" hidden></div>
 </aside>
+
+<div class="veil" id="veil" hidden role="dialog" aria-modal="true" aria-labelledby="veil-h">
+ <div class="veil-card">
+  <p class="veil-t" id="veil-t">00:00</p>
+  <h2 id="veil-h">En pausa</h2>
+  <p id="veil-p">El reloj est&aacute; parado y el examen, tapado.</p>
+  <div class="veil-foot">
+   <button class="mode mode-go" id="veil-btn" type="button">Reanudar</button>
+   <button class="mode" id="veil-exit" type="button">Salir del examen</button>
+  </div>
+ </div>
+</div>
 
 <div class="wrap">
 <section class="cat" id="simulacro">
@@ -558,10 +601,23 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   <div class="su-lens">
    <label class="su-len"><input type="radio" name="len" value="10">10<s>corto</s></label>
    <label class="su-len"><input type="radio" name="len" value="20">20<s>medio</s></label>
-   <label class="su-len"><input type="radio" name="len" value="40" checked>40<s>simulacro</s></label>
+   <label class="su-len"><input type="radio" name="len" value="70" checked>70<s>examen</s></label>
    <label class="su-len"><input type="radio" name="len" value="all">Todas<s>selecci&oacute;n</s></label>
   </div>
   <p class="su-note" id="su-len-note" hidden></p>
+ </fieldset>
+
+ <fieldset class="su-block">
+  <legend>Tiempo</legend>
+  <div class="su-lens">
+   <label class="su-len"><input type="radio" name="clock" value="auto" checked><span id="su-clock-auto">78</span> min<s>ritmo de examen</s></label>
+   <label class="su-len"><input type="radio" name="clock" value="fijo"><input type="number" id="su-mins" value="70" min="1" max="600" step="1" inputmode="numeric" aria-label="Minutos del examen"> min<s>a tu medida</s></label>
+   <label class="su-len"><input type="radio" name="clock" value="libre">Sin l&iacute;mite<s>cron&oacute;metro</s></label>
+  </div>
+  <p class="su-note">El ejercicio oficial da 100 minutos para 90 preguntas &mdash;las 70 del cuestionario
+  m&aacute;s las 20 del supuesto&mdash; sin repartirlos entre las dos partes. El &laquo;ritmo de examen&raquo;
+  aplica ese mismo ritmo, 1 min 7 s por pregunta, al n&uacute;mero de preguntas que elijas. Puedes pausar y
+  reanudar el reloj durante el examen.</p>
  </fieldset>
 
  <p class="su-err" id="su-err" hidden></p>
@@ -591,12 +647,16 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  var simTitle=document.getElementById("sim-title");
  var dlg=document.getElementById("setup");
  var mode="estudio";
- var sess={bank:"oficial",cats:CATS.slice(),len:"40",ids:[],ans:{},items:[],list:[]};
+ var sess={bank:"oficial",cats:CATS.slice(),len:"70",ids:[],ans:{},items:[],list:[],
+   clock:{mode:"auto",total:0}};
 
  function all(){ return qs.concat(gen); }
  function byId(id){ var r=null; all().forEach(function(q){ if(q.id===id) r=q; }); return r; }
- function saveSess(){ try{ localStorage.setItem(KSESS,JSON.stringify(
-   {bank:sess.bank,cats:sess.cats,len:sess.len,ids:sess.ids,ans:sess.ans,items:sess.items})); }catch(e){} }
+ function saveSess(){ try{
+   var cc=sess.clock||{mode:"auto",total:0};
+   localStorage.setItem(KSESS,JSON.stringify(
+   {bank:sess.bank,cats:sess.cats,len:sess.len,ids:sess.ids,ans:sess.ans,items:sess.items,
+    clock:{mode:cc.mode,total:cc.total,secs:Math.round(clock.secs),over:!!clock.over,done:!!clock.done}})); }catch(e){} }
  function pad(n){ return ("00"+n).slice(-3); }
  function mix(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)),t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
  function answers(){ return mode==="sesion" ? sess.ans : {}; }
@@ -687,11 +747,18 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   document.getElementById("s-score").textContent=(hit-miss/3).toFixed(2).replace(".",",");
   var note=document.getElementById("s-note");
   var full = done===list.length && list.length>0;
-  note.hidden=!full;
-  if(full) note.textContent="examen completo";
+  if(clock.over){
+   note.hidden=false;
+   note.textContent="se acab\u00f3 el tiempo \u00b7 "+(list.length-done)+" sin responder";
+  } else if(full){
+   clockFinish();
+   note.hidden=false;
+   note.textContent = clock.on ? "examen completo en "+hhmmss(clock.secs) : "examen completo";
+  } else note.hidden=true;
  }
  function answer(q,opt){
   if(q.classList.contains("answered")) return;
+  if(clock.on && !clock.run && !clock.done) return;
   sess.ans[q.id]=opt.dataset.k0; saveSess();
   paint(q); tally(); focusable();
  }
@@ -708,7 +775,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   var q=opt.closest(".q"); if(q) answer(q,opt);
  });
  function focusable(){
-  var on=mode==="sesion";
+  var on = mode==="sesion" && !clock.over && !(clock.on && !clock.run && !clock.done);
   all().forEach(function(q){
    q.querySelectorAll(".opt").forEach(function(o){
     if(on && !q.classList.contains("answered")){ o.setAttribute("tabindex","0"); o.setAttribute("role","button"); }
@@ -716,6 +783,116 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
    });
   });
  }
+
+ /* ---------- el reloj ---------- */
+ /* El ejercicio oficial da 100 minutos para 90 preguntas (70 del cuestionario + 20 del
+    supuesto) sin repartirlos entre las dos partes: el "ritmo de examen" aplica ese mismo
+    ritmo, 100/90 de minuto por pregunta, a las que tenga el examen que montes. */
+ var RITMO=100/90;
+ var clockBox=document.getElementById("s-clock");
+ var clockTxt=document.getElementById("s-time");
+ var clockTag=document.getElementById("s-tag");
+ var clockBtn=document.getElementById("s-pause");
+ var veil=document.getElementById("veil");
+ var veilT=document.getElementById("veil-t");
+ var veilH=document.getElementById("veil-h");
+ var veilP=document.getElementById("veil-p");
+ var veilBtn=document.getElementById("veil-btn");
+ var clock={on:false,down:true,total:0,secs:0,run:false,over:false,done:false,t:null,last:0,save:0};
+
+ function autoMins(n){ return Math.max(1,Math.round(n*RITMO)); }
+ function hhmmss(s){
+  s=Math.max(0,Math.round(s));
+  var h=Math.floor(s/3600), m=Math.floor((s%3600)/60), q=s%60;
+  var mm=("0"+m).slice(-2), ss=("0"+q).slice(-2);
+  return h ? h+":"+mm+":"+ss : mm+":"+ss;
+ }
+ function clockLeft(){ return clock.down ? Math.max(0,clock.total-clock.secs) : clock.secs; }
+ function clockPaint(){
+  clockBox.hidden=!clock.on;
+  if(!clock.on) return;
+  var v = clock.done ? clock.secs : clockLeft();
+  clockTxt.textContent=hhmmss(v);
+  clockBox.classList.toggle("up",!clock.down || clock.done);
+  clockBox.classList.toggle("low",clock.down && !clock.over && !clock.done && v<=300);
+  clockTag.textContent = clock.over ? "agotado" : (clock.done ? "empleado" : (clock.down ? "restante" : "transcurrido"));
+  clockBtn.textContent = clock.run ? "Pausar" : "Reanudar";
+  clockBtn.hidden = clock.over || clock.done;
+ }
+ function clockHalt(){ if(clock.t){ clearInterval(clock.t); clock.t=null; } clock.run=false; }
+ function clockTick(){
+  var now=Date.now(), d=(now-clock.last)/1000;
+  clock.last=now;
+  if(!(d>0)) d=0; if(d>3600) d=0;
+  clock.secs+=d;
+  if(clock.down && clock.secs>=clock.total){ clock.secs=clock.total; timeUp(); return; }
+  clockPaint();
+  if(++clock.save>=40){ clock.save=0; saveSess(); }
+ }
+ function clockRun(){
+  clockHalt();
+  if(!clock.on || clock.over || clock.done){ clockPaint(); return; }
+  clock.run=true; clock.last=Date.now(); clock.save=0;
+  clock.t=setInterval(clockTick,250);
+  clockPaint();
+ }
+ function clockPause(){
+  if(!clock.on || !clock.run) return;
+  clockTick();
+  if(clock.over) return;
+  clockHalt(); clockPaint(); focusable(); saveSess(); showVeil("pausa");
+ }
+ function clockResume(){
+  if(!clock.on || clock.run || clock.over || clock.done) return;
+  hideVeil(); clockRun(); focusable(); saveSess();
+ }
+ function clockInit(cm,total,secs,run){
+  clockHalt(); hideVeil();
+  clock.on=true; clock.down = cm!=="libre"; clock.total=total||0;
+  clock.secs=secs||0; clock.over=false; clock.done=false; clock.save=0;
+  if(clock.down && clock.secs>=clock.total && clock.total>0){ clock.secs=clock.total; clock.over=true; }
+  if(run && !clock.over) clockRun(); else clockPaint();
+ }
+ function clockEnd(){
+  clockHalt(); hideVeil();
+  clock.on=false; clock.over=false; clock.done=false; clock.secs=0; clock.total=0;
+  clockPaint();
+ }
+ function clockFinish(){
+  if(!clock.on || clock.over || clock.done) return;
+  if(clock.run) clockTick();
+  clockHalt(); clock.done=true; clockPaint(); saveSess();
+ }
+ function timeUp(){
+  clockHalt(); clock.over=true; clockPaint(); saveSess();
+  focusable(); tally(); showVeil("fin");
+ }
+ function showVeil(kind){
+  veil.dataset.kind=kind;
+  veilT.textContent=hhmmss(clock.down?clockLeft():clock.secs);
+  if(kind==="fin"){
+   veilT.textContent="00:00";
+   veilH.textContent="Se acab\u00f3 el tiempo";
+   veilP.textContent="Lo que quede sin responder se queda en blanco, y el blanco no resta. Reinicia el examen o empieza uno nuevo cuando quieras.";
+   veilBtn.textContent="Ver el resultado";
+  } else if(kind==="carga"){
+   veilH.textContent="Examen en pausa";
+   veilP.textContent="Al recargar la p\u00e1gina el reloj se ha parado. Reanuda para seguir donde lo dejaste.";
+   veilBtn.textContent="Reanudar";
+  } else {
+   veilH.textContent="En pausa";
+   veilP.textContent="El reloj est\u00e1 parado y el examen, tapado. Reanuda para seguir.";
+   veilBtn.textContent="Reanudar";
+  }
+  veil.hidden=false;
+  try{ veilBtn.focus(); }catch(e){}
+ }
+ function hideVeil(){ veil.hidden=true; }
+ clockBtn.addEventListener("click",function(){ if(clock.run) clockPause(); else clockResume(); });
+ veilBtn.addEventListener("click",function(){
+  if(veil.dataset.kind==="fin") hideVeil(); else clockResume();
+ });
+ document.getElementById("veil-exit").addEventListener("click",function(){ exitSession(); });
 
  /* ---------- corpus: los preceptos que de verdad se preguntan ---------- */
  function corpus(sel){
@@ -936,7 +1113,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   sess.list=[];
  }
 
- function mount(){
+ function mount(st){
   var list=sess.list;
   simTitle.textContent = (sess.bank==="ia" ? "Preguntas nuevas" : "Examen") + " · " + list.length +
     (list.length===1?" pregunta":" preguntas");
@@ -952,7 +1129,11 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
    .map(function(c){ return count[c]+" "+NAMES[c]; }).join(" · ");
   document.body.classList.add("exam","sim");
   mode="sesion";
+  var cc=sess.clock||{mode:"auto",total:autoMins(list.length)*60};
+  clockInit(cc.mode,cc.total,(st&&st.secs)||0,!st);
+  if(st&&st.done) clock.done=true;
   all().forEach(paint); focusable(); tally();
+  if(st){ clockPaint(); if(!clock.over && !clock.done) showVeil("carga"); }
   window.scrollTo({top:document.querySelector(".bar").offsetTop-8,behavior:"instant"});
  }
 
@@ -961,6 +1142,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   if(mode==="sesion" && sess.list.length){
    sess.list.forEach(shuffle);
    sess.list.forEach(function(q,i){ q.querySelector(".q-n").textContent=pad(i+1); });
+   var cc=sess.clock||{mode:"auto",total:autoMins(sess.list.length)*60};
+   clockInit(cc.mode,cc.total,0,true);
   }
   saveSess();
   all().forEach(paint); focusable(); tally();
@@ -969,6 +1152,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
 
  function exitSession(){
   mode="estudio";
+  clockEnd();
   document.body.classList.remove("exam","sim");
   unmount();
   all().forEach(paint); focusable(); tally();
@@ -988,6 +1172,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  var suKey=document.getElementById("su-key");
  var suModel=document.getElementById("su-model");
  var suLenNote=document.getElementById("su-len-note");
+ var suMins=document.getElementById("su-mins");
+ var suClockAuto=document.getElementById("su-clock-auto");
 
  var counts={};
  CATS.forEach(function(c){ counts[c]=qs.filter(function(q){ return q.dataset.cat===c; }).length; });
@@ -1001,6 +1187,22 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
  }
  function bank(){ return document.querySelector('input[name="bank"]:checked').value; }
  function len(){ return document.querySelector('input[name="len"]:checked').value; }
+ function clockPick(){ var el=document.querySelector('input[name="clock"]:checked'); return el?el.value:"auto"; }
+ function planned(){
+  var sel=selCats(), n=0;
+  sel.forEach(function(c){ n+=counts[c]; });
+  var L=len();
+  if(bank()==="ia") return L==="all" ? 40 : parseInt(L,10);
+  if(L==="all") return n;
+  return Math.min(parseInt(L,10),n);
+ }
+ function clockPlan(n){
+  var cm=clockPick();
+  if(cm==="libre") return {mode:"libre",total:0};
+  var m = cm==="fijo" ? parseInt(suMins.value,10) : autoMins(n);
+  if(!(m>0)) m=autoMins(n);
+  return {mode:cm,total:Math.min(600,m)*60};
+ }
 
  function refresh(){
   var sel=selCats(), n=0;
@@ -1012,6 +1214,7 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   if(ia && L==="all"){ suLenNote.hidden=false; suLenNote.textContent="Con preguntas nuevas, «Todas» genera 40 como máximo."; }
   else if(!ia && L!=="all" && parseInt(L,10)>n){ suLenNote.hidden=false; suLenNote.textContent="Tu selección solo tiene "+n+" preguntas: el examen será de "+n+"."; }
   else suLenNote.hidden=true;
+  suClockAuto.textContent=autoMins(Math.max(1,planned()));
   suGo.disabled = n===0;
   if(n===0){ suErr.hidden=false; suErr.textContent="Elige al menos un asunto."; }
   else suErr.hidden=true;
@@ -1049,11 +1252,12 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   suErr.hidden=true;
   if(b!=="ia"){
    var n = L==="all" ? null : parseInt(L,10);
-   sess={bank:"oficial",cats:sel,len:L,ids:[],ans:{},items:[],list:[]};
+   sess={bank:"oficial",cats:sel,len:L,ids:[],ans:{},items:[],list:[],clock:null};
    unmount();
    sess.list=pickOfficial(sel,n);
    sess.list.forEach(shuffle);
    sess.ids=sess.list.map(function(q){ return q.id; });
+   sess.clock=clockPlan(sess.list.length);
    saveSess(); closeCard(); mount();
    return;
   }
@@ -1069,7 +1273,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   var cp=corpus(sel);
   if(!Object.keys(cp.refs).length){ suErr.hidden=false; suErr.textContent="No hay preceptos en esa selección."; return; }
   suGo.disabled=true;
-  var got=[], seen={}, round=0, MAXR=4, BATCH=Math.min(10,want);
+  var got=[], seen={}, round=0, BATCH=Math.min(10,want);
+  var MAXR=Math.max(4,Math.ceil(want/BATCH)+3);
   progress(0.04,"pidiendo preguntas…");
   function step(){
    round++;
@@ -1093,11 +1298,12 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
     suProg.hidden=true; return;
    }
    got=got.slice(0,want);
-   sess={bank:"ia",cats:sel,len:String(want),ids:[],ans:{},items:got,list:[]};
+   sess={bank:"ia",cats:sel,len:String(want),ids:[],ans:{},items:got,list:[],clock:null};
    unmount();
    sess.list=mountGen(got);
    sess.list.forEach(shuffle);
    sess.ids=sess.list.map(function(q){ return q.id; });
+   sess.clock=clockPlan(sess.list.length);
    saveSess();
    progress(1,got.length+" listas");
    closeCard(); suProg.hidden=true; mount();
@@ -1133,7 +1339,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   var raw=null; try{ raw=JSON.parse(localStorage.getItem(KSESS)||"null"); }catch(e){}
   if(!raw || !raw.ids || !raw.ids.length) return;
   sess.bank=raw.bank||"oficial"; sess.cats=raw.cats||CATS.slice();
-  sess.len=raw.len||"40"; sess.ans=raw.ans||{}; sess.items=raw.items||[];
+  sess.len=raw.len||"70"; sess.ans=raw.ans||{}; sess.items=raw.items||[];
+  sess.clock=(raw.clock && raw.clock.mode) ? {mode:raw.clock.mode,total:raw.clock.total||0} : null;
   if(sess.bank==="ia"){
    if(!sess.items.length) return;
    sess.list=mountGen(sess.items);
@@ -1143,7 +1350,8 @@ footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--rule);font-
   }
   sess.ids=sess.list.map(function(q){ return q.id; });
   sess.list.forEach(shuffle);
-  mount();
+  if(!sess.clock) sess.clock={mode:"auto",total:autoMins(sess.list.length)*60};
+  mount({secs:(raw.clock&&raw.clock.secs)||0, done:!!(raw.clock&&raw.clock.done)});
  })();
  all().forEach(paint); focusable(); tally();
  arriba();
