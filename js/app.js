@@ -91,7 +91,7 @@
   var ses = null;        /* examen en curso o corregido */
   var verFiltro = "todas";
   var navAbierto = false;
-  var casoPlegado = false;
+  var casoPlegado = false, casoGrande = false;
   var scrollCaso = { lista: 0, texto: 0 };
   var temasAbiertos = {};
   /* Con un solo tema, se abre solo: no hay nada que elegir antes. */
@@ -178,7 +178,7 @@
       modo: modo, ids: ids, caso: casoId || null, pos: 0, resp: {}, fin: false,
       tiempo: tiempo, total: tiempo === "ritmo" ? ids.length * RITMO : 0, seg: 0, parado: false, agotado: false
     };
-    casoPlegado = false; verFiltro = "todas"; scrollCaso = { lista: 0, texto: 0 };
+    casoPlegado = false; casoGrande = false; verFiltro = "todas"; scrollCaso = { lista: 0, texto: 0 };
     guardarSesion(); arrancarReloj(); pintar("entrar");
   }
 
@@ -681,11 +681,11 @@
   }
   function abrirReparto(c) {
     if (c.corto) return '<div class="reparto solo">';
-    return '<div class="reparto' + (casoPlegado ? " plegado" : "") + '">' + panelCaso(c);
+    return '<div class="reparto' + (casoPlegado ? " plegado" : casoGrande ? " grande" : "") + '">' + panelCaso(c);
   }
   /* En resultados el reparto lleva dentro el acceso directo: columna izquierda en escritorio, acordeón arriba en móvil. */
   function abrirRepartoRes(c) {
-    return '<div class="reparto res' + (c.corto ? " solo" : casoPlegado ? " plegado" : "") + '">' + htmlNavegador(ses.ids, "Volver al inicio") + (c.corto ? "" : panelCaso(c));
+    return '<div class="reparto res' + (c.corto ? " solo" : casoPlegado ? " plegado" : casoGrande ? " grande" : "") + '">' + htmlNavegador(ses.ids, "Volver al inicio") + (c.corto ? "" : panelCaso(c));
   }
   function consigna(c) {
     if (!c.corto) return "";
@@ -708,7 +708,7 @@
   function panelCaso(c) {
     var h = '<section class="caso" data-flip-id="caso" aria-label="Enunciado del supuesto"><div class="caso-cab"><span>' + esc(titulo(c)) + "</span>";
     h += '<button class="enlace plegar" data-a="plegar" aria-expanded="' + !casoPlegado + '">' + (casoPlegado ? "Mostrar" : "Plegar") + "</button></div>";
-    if (!casoPlegado) h += '<div class="caso-texto" tabindex="0">' + textoCaso(c.texto) + "</div>";
+    if (!casoPlegado) h += '<div class="caso-texto" tabindex="0" data-a="caso-grande">' + textoCaso(c.texto) + "</div>";
     return h + "</section>";
   }
 
@@ -962,6 +962,11 @@
         guardarSesion(); pintar();
         break;
       case "plegar": casoPlegado = !casoPlegado; pintar("plegar"); break;
+      case "caso-grande": /* Solo en móvil: un toque estira el enunciado y otro lo vuelve a encoger. El texto conserva su scroll. */
+        if (!window.matchMedia("(max-width:899px)").matches) break;
+        casoGrande = !casoGrande;
+        var rp = b.closest(".reparto"); if (rp) rp.classList.toggle("grande", casoGrande);
+        break;
       case "corregir":
         var faltan = ses.ids.length - ses.ids.filter(function (x) { return ses.resp[x] !== undefined && ses.resp[x] !== null; }).length;
         if (faltan) {
@@ -987,7 +992,8 @@
   function alternar(b) {
     var abrir = b.getAttribute("aria-expanded") !== "true";
     var antes = b.getBoundingClientRect().top;
-    var M = window.Mov;
+    /* En móvil la animación de altura va a tirones dentro de la lista con scroll: se abre y cierra de golpe. */
+    var M = window.matchMedia("(max-width:899px)").matches ? null : window.Mov;
     raiz.querySelectorAll('.acordeon[aria-expanded="true"]').forEach(function (o) {
       o.setAttribute("aria-expanded", "false"); o.querySelector("span").textContent = "Ver justificación";
       var j = document.getElementById(o.getAttribute("aria-controls"));
